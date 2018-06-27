@@ -21,13 +21,17 @@ client.on("guildDelete", guild => {
 
 //any message read
 client.on('message', msg => {
-
+    
+    //test if the author is a bot, returning so it wont be in a bot loop
     if (msg.author.bot) return;
+    //test if the msg start with the command prefix (/ ! t!)etc
     if (!msg.content.startsWith(configs.prefix)) return;
 
+    //slice msg to show only the command, not the prefix of any not wanted arguments
     const args = msg.content.slice(configs.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-
+    
+    //empty command will say hello
     if(command === ""){
         if (msg.author.id == 147523153566892032 || msg.author.id == 158223674888028160){
             msg.channel.send("yes, master?");
@@ -36,6 +40,7 @@ client.on('message', msg => {
         }
     }
 
+    //"img" command will echo user profile pic
     if(command === "img"){
         msg.channel.send(`Your avatar: ${msg.author.displayAvatarURL}`);
     }
