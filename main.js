@@ -31,7 +31,10 @@ client.on('message', msg => {
     const args = msg.content.slice(configs.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
+    //regex for: (x)D(y) where x = number of dices (max 99) and y = faces (max 999)
     if(/^([0-9]{1,2}d[0-9]{1,3})$/.test(command)){
+        //split the command, the first will tell how many times the loop will run
+        //the second will set the maximum on the random function
         var commandArgs = command.split("d");
         for(let x = 0; x < commandArgs[0]; x++){
             var roll = Math.floor(Math.random() * Math.floor(commandArgs[1])) + 1;
