@@ -5,7 +5,7 @@ const client = new Discord.Client();
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`)
     
-    client.user.setActivity(`OwO what's this?`);
+    client.user.setActivity(`With my masters <3`);
 });
 
 client.on("guildCreate", guild => {
@@ -24,17 +24,14 @@ client.on('message', msg => {
     const args = msg.content.slice(configs.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    if(command === ""){
-        if (msg.author.id == 147523153566892032 || msg.author.id == 158223674888028160){
-            msg.channel.send("yes, master?");
-        }else{
-            msg.channel.send("yes?");
+    if(/^([0-9]{1,2}d[0-9]{1,3})$/.test(command)){
+        var commandArgs = command.split("d");
+        for(let x = 0; x < commandArgs[0]; x++){
+            var roll = Math.floor(Math.random() * Math.floor(commandArgs[1])) + 1;
+            msg.channel.send(`${msg.author.username}'s d${commandArgs[1]} roll: ${roll}`);
         }
     }
 
-    if(command === "img"){
-        msg.channel.send(`Your avatar: ${msg.author.displayAvatarURL}`);
-    }
 });
 
 client.login(configs.token);
